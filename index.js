@@ -56,6 +56,12 @@ async function run() {
             res.send({ result, token });
         });
 
+        //get all users
+        app.get('/users', async (req, res) => {
+            const users = await userCollection.find().toArray();
+            res.send(users);
+        });
+
 
 
         app.get('/service', async (req, res) => {
@@ -122,6 +128,8 @@ async function run() {
             const result = await bookingCollection.insertOne(booking);
             return res.send({ success: true, result });
         })
+
+
 
 
         /** 
