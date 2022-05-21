@@ -30,7 +30,7 @@ async function run() {
         });
 
         app.get('/available', async (req, res) => {
-            const date = req.query.date || 'May 21, 2022';
+            const date = req.query.date;
 
             //step 1: get all services
             const services = await servicesCollection.find().toArray();
@@ -58,6 +58,12 @@ async function run() {
             res.send(services);
         })
 
+        app.get('/booking', async (req, res) => {
+            const patient = req.query.patient;
+            const query = { patient: patient };
+            const bookings = await bookingCollection.find(query).toArray();
+            res.send(bookings);
+        })
 
         //add new element in booking
         app.post('/booking', async (req, res) => {
@@ -82,6 +88,8 @@ async function run() {
          * app.post('/booking/:id') //update a single booking
          * app.delete('/booking/:id') // delete one booking.
         */
+
+
 
     }
     finally {
